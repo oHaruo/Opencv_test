@@ -7,13 +7,17 @@ import cv2
 img = cv2.imread("Test1.jpg")
 img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
+scale_factor = 0.5
+resized_img_gray = cv2.resize(img_gray, None, fx=scale_factor, fy=scale_factor)
+cv2.imshow('result', resized_img_gray)
+cv2.waitKey(0)
 
 
 # cascade classifier 읽고 얼굴 이미지 인식
-cascade_file = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
+cascade_file = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 
 if cascade_file.empty():
-    print('xml load failed')
+    print("xml load failed")
     sys.exit()
 
 face_list = cascade_file.detectMultiScale(img_gray, scaleFactor=1.05, minNeighbors=15)
